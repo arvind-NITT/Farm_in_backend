@@ -5,7 +5,9 @@ const cors = require('cors');
 const tools = require('./routes/tools');
 
 const port = process.env.PORT;
-
+const dblink=process.env.DATABASE_LINK;
+const mongoose= require('mongoose');
+// const port = process.env.PORT;
 ////
 
 const app= express();
@@ -19,8 +21,17 @@ app.get('/',(req,res)=>{
     res.send("Hey Welcome ");
 });
  
-Connet_to_mongoose();
-app.listen(port,()=>{
-    console.log("Starting.....")
-})
+// Connet_to_mongoose();
+// app.listen(port,()=>{
+//     console.log("Starting.....")
+// })
 
+const func= async()=>{
+    await mongoose.connect(dblink);
+     console.log("connecting");
+     app.listen(port,()=>{
+        console.log("Starting.....")
+    })
+ }
+
+ func();
